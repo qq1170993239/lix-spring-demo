@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lix.spring.demo.dao.TestUserDao">
+
+    <resultMap type="cn.lix.spring.demo.entity.TestUser" id="TestUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="userGender" column="user_gender" jdbcType="VARCHAR"/>
+        <result property="userPhone" column="user_phone" jdbcType="VARCHAR"/>
+        <result property="userAddr" column="user_addr" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TestUserMap">
+        select
+          id, user_name, user_gender, user_phone, user_addr
+        from test_user
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TestUserMap">
+        select
+          id, user_name, user_gender, user_phone, user_addr
+        from test_user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="TestUserMap">
+        select
+        id, user_name, user_gender, user_phone, user_addr
+        from test_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userName != null and userName != ''">
+                and user_name = #{userName}
+            </if>
+            <if test="userGender != null and userGender != ''">
+                and user_gender = #{userGender}
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                and user_phone = #{userPhone}
+            </if>
+            <if test="userAddr != null and userAddr != ''">
+                and user_addr = #{userAddr}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into test_user(user_name, user_gender, user_phone, user_addr)
+        values (#{userName}, #{userGender}, #{userPhone}, #{userAddr})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update test_user
+        <set>
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="userGender != null and userGender != ''">
+                user_gender = #{userGender},
+            </if>
+            <if test="userPhone != null and userPhone != ''">
+                user_phone = #{userPhone},
+            </if>
+            <if test="userAddr != null and userAddr != ''">
+                user_addr = #{userAddr},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from test_user where id = #{id}
+    </delete>
+
+</mapper>
