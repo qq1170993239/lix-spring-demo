@@ -2,6 +2,7 @@ package cn.lix.spring.demo.controller;
 
 import cn.lix.spring.demo.entity.TestUser;
 import cn.lix.spring.demo.service.TestUserService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,7 @@ public class TestUserController {
      * @param id 主键
      * @return 单条数据
      */
+    @Cacheable(value="thisRedis", key="#root.methodName+'_users_'+#id", condition = "#id<100")
     @GetMapping("selectOne")
     public TestUser selectOne(Integer id) {
         return this.testUserService.queryById(id);
