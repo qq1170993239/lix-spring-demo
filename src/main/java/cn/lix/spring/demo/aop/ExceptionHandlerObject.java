@@ -1,6 +1,7 @@
 package cn.lix.spring.demo.aop;
 
 import cn.lix.spring.demo.annotations.ExceptionHandler;
+import cn.lix.spring.demo.utils.LogUtils;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.MethodInterceptor;
 import org.springframework.cglib.proxy.MethodProxy;
@@ -20,7 +21,7 @@ public class ExceptionHandlerObject implements MethodInterceptor {
     private Class type;
 
     public ExceptionHandlerObject(Object target,  ExceptionHandler handler) {
-        System.out.println("生成代理对象：" + target.getClass());
+        LogUtils.log().info("生成代理对象：" + target.getClass());
         this.target = target;
         this.type = handler.value();
     }
@@ -41,16 +42,16 @@ public class ExceptionHandlerObject implements MethodInterceptor {
         }
         Object result = null;
         try {
-            System.out.println("ExceptionHandlerObject开始。。。");
+            LogUtils.log().info("ExceptionHandlerObject开始。。。");
             result = methodProxy.invokeSuper(object, args);
-            System.out.println("ExceptionHandlerObject结束。。。");
+            LogUtils.log().info("ExceptionHandlerObject结束。。。");
         } catch (Throwable throwable) {
             // 如果是该类型或是其子类就处理
             if(type.isAssignableFrom(throwable.getClass())){
-                System.out.println("ExceptionHandlerObject统一异常处理。。。");
+                LogUtils.log().info("ExceptionHandlerObject统一异常处理。。。");
             }
         } finally {
-            System.out.println("ExceptionHandlerObject---finally。。。");
+            LogUtils.log().info("ExceptionHandlerObject---finally。。。");
         }
         return result;
     }

@@ -1,6 +1,7 @@
 package cn.lix.spring.demo.aop;
 
 import cn.lix.spring.demo.annotations.MyLogger;
+import cn.lix.spring.demo.utils.LogUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -15,13 +16,13 @@ public class MyLoggerAspect {
     public Object sayHello(ProceedingJoinPoint joinPoint, MyLogger logger) {
         Object obj = null;
         try {
-            System.out.println(logger.name() + "  do somethings start....");
+            LogUtils.log().info(logger.name() + "  do somethings start....");
             obj = joinPoint.proceed();
-            System.out.println(logger.name() + "  do somethings end....");
+            LogUtils.log().info(logger.name() + "  do somethings end....");
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         } finally {
-            System.out.println(logger.name() + "  finally....");
+            LogUtils.log().info(logger.name() + "  finally....");
         }
         return obj;
     }

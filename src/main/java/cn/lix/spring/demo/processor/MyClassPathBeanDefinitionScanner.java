@@ -1,6 +1,7 @@
 package cn.lix.spring.demo.processor;
 
 import cn.lix.spring.demo.interfaces.MyService;
+import cn.lix.spring.demo.utils.LogUtils;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
@@ -22,7 +23,7 @@ public class MyClassPathBeanDefinitionScanner extends ClassPathBeanDefinitionSca
 
     @Override
     protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
-        System.out.println("doscan.....");
+        LogUtils.log().info("doscan.....");
         return super.doScan(basePackages);
     }
 

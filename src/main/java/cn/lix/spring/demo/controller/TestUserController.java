@@ -30,7 +30,7 @@ public class TestUserController {
      * @param id 主键
      * @return 单条数据
      */
-    @Cacheable(value="thisRedis", key="#root.methodName+'_users_'+#id", condition = "#id<100")
+    @Cacheable(value="thisRedis", key="#root.methodName+'_users_'+#id", condition = "#id<20")
     @GetMapping("selectOne")
     public TestUser selectOne(Integer id) {
         return this.testUserService.queryById(id);

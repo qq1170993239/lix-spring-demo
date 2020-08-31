@@ -1,5 +1,6 @@
 package cn.lix.spring.demo.processor;
 
+import cn.lix.spring.demo.utils.LogUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -18,7 +19,7 @@ public class TestBeanDefinitionRegistryPostProcessor implements BeanDefinitionRe
         scanner.registerFilters();
         // 这里配置扫描包最好写成配置
         int scan = scanner.scan("cn.lix.spring.demo");
-        System.out.println(scan);
+        LogUtils.log().info(String.valueOf(scan));
     }
 
     @Override

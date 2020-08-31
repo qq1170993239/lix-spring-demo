@@ -1,5 +1,6 @@
 package cn.lix.spring.demo.listeners;
 
+import cn.lix.spring.demo.utils.LogUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringApplicationRunListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -23,36 +24,36 @@ public class MyTestSpringApplicationRunListener implements SpringApplicationRunL
 
     @Override
     public void starting() {
-        System.out.println("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.starting");
+        LogUtils.log().info("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.starting");
     }
 
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
-        System.out.println("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.environmentPrepared");
+        LogUtils.log().info("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.environmentPrepared");
     }
 
     @Override
     public void contextPrepared(ConfigurableApplicationContext context) {
-        System.out.println("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.contextPrepared");
+        LogUtils.log().info("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.contextPrepared");
     }
 
     @Override
     public void contextLoaded(ConfigurableApplicationContext context) {
-        System.out.println("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.contextLoaded");
+        LogUtils.log().info("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.contextLoaded");
     }
 
     @Override
     public void started(ConfigurableApplicationContext context) {
-        System.out.println("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.started");
+        LogUtils.log().info("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.started");
     }
 
     @Override
     public void running(ConfigurableApplicationContext context) {
-        System.out.println("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.running");
+        LogUtils.log().info("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.running");
     }
 
     @Override
     public void failed(ConfigurableApplicationContext context, Throwable exception) {
-        System.out.println("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.failed");
+        LogUtils.log().info("com.platform.mst.helper.listener.MyTestSpringApplicationRunListener.failed");
     }
 }

@@ -1,5 +1,6 @@
 package cn.lix.spring.demo.others.redis;
 
+import cn.lix.spring.demo.utils.LogUtils;
 import redis.clients.jedis.Jedis;
 
 public class JedisTest {
@@ -11,7 +12,7 @@ public class JedisTest {
         // 执行命令
         jedis.set("my-redis-test", "my-redis-test");
         // 验证值
-        System.out.println(jedis.get("my-redis-test"));
+        LogUtils.log().info(jedis.get("my-redis-test"));
         // 关闭连接
         jedis.close();
     }

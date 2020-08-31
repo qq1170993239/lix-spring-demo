@@ -1,5 +1,6 @@
 package cn.lix.spring.demo.listeners;
 
+import cn.lix.spring.demo.utils.LogUtils;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ApplicationContextEvent;
 import org.springframework.stereotype.Component;
@@ -9,6 +10,6 @@ public class TestApplicationContextListner implements ApplicationListener<Applic
 
     @Override
     public void onApplicationEvent(ApplicationContextEvent event) {
-        System.out.println("---ApplicationContextEvent---");
+        LogUtils.log().info("---ApplicationContextEvent---");
     }
 }

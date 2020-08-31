@@ -1,6 +1,7 @@
 package cn.lix.spring.demo;
 
 import cn.lix.spring.demo.imports.TestImportSelectors;
+import cn.lix.spring.demo.utils.LogUtils;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
