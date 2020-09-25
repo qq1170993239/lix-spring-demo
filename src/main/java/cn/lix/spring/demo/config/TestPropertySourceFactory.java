@@ -1,5 +1,6 @@
 package cn.lix.spring.demo.config;
 
+import cn.lix.spring.demo.utils.LogUtils;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.Resource;
@@ -8,6 +9,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.PropertySourceFactory;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Properties;
 
 /**
@@ -21,20 +23,21 @@ public class TestPropertySourceFactory implements PropertySourceFactory {
     public PropertySource<?> createPropertySource(String name, EncodedResource resource) throws IOException {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver(this.getClass().getClassLoader());
         if (resource.getResource() == null) {
-            throw new IllegalArgumentException("请配置value，多个配置路劲请用英文逗号隔开");
+            LogUtils.log().error("未获取到org.springframework.context.annotation.PropertySource.value的配置信息");
+            throw new IllegalArgumentException("请配置org.springframework.context.annotation.PropertySource.value");
         }
+
         String description = resource.getResource().getDescription();
-        String paths = description.substring(description.indexOf("[") + 1, description.indexOf("]"));
-        String[] split = paths.split(",");
+        String path = description.substring(description.indexOf("[") + 1, description.indexOf("]"));
+
+        Resource[] resources = resolver.getResources(path.trim());
         Properties properties = new Properties();
-        for (String path : split) {
-            Resource[] resources = resolver.getResources(path.trim());
-            for (Resource re : resources) {
-                properties.load(re.getInputStream());
-            }
+        for (Resource re : resources) {
+            properties.load(new InputStreamReader(re.getInputStream(), resource.getEncoding() == null ? "utf-8" : resource.getEncoding()));
         }
-        PropertiesPropertySource propertiesPropertySource = new PropertiesPropertySource(name, properties);
-        return propertiesPropertySource;
+        LogUtils.log().info("加载{}资源文件成功", path);
+        name = name == null ? "defaultPropertySource@".concat(String.valueOf(properties.hashCode())) : name.concat("@").concat(String.valueOf(properties.hashCode()));
+        return new PropertiesPropertySource(name, properties);
     }
 
 

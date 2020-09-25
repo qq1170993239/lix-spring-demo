@@ -15,7 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 @MapperScan("cn.lix.spring.demo.dao")
 // 配置环境参数
-@PropertySource(value = "conf/*.properties,test/*.conf", name = "testPropertySource", factory = TestPropertySourceFactory.class)
+@PropertySource(value = {"conf/*.properties", "test/*.conf"}, name = "testPropertySource", factory = TestPropertySourceFactory.class)
 public class SpringDemoApplication {
 
     @Value("${properties.test.name}")
